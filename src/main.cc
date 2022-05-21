@@ -14,8 +14,7 @@ int main(int argc, char* argv[]) {
 
     auto video_stream = format_context.find_video_stream();
 
-    const AVCodec* codec =
-        avcodec_find_decoder(video_stream->codecpar->codec_id);
+    auto codec = avcodec_find_decoder(video_stream->codecpar->codec_id);
     if (codec == nullptr) {
       throw std::runtime_error("No supported decoder found");
     }

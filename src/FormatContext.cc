@@ -2,9 +2,8 @@
 
 #include <iostream>
 
-FormatContext::FormatContext(AVFormatContext* context) {
-  format_context = context;
-}
+FormatContext::FormatContext(AVFormatContext* context)
+    : format_context(context) {}
 
 FormatContext FormatContext::open_input(const char* url) {
   AVFormatContext* format_context = nullptr;

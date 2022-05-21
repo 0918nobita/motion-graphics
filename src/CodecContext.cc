@@ -1,12 +1,8 @@
 #include <iostream>
 
-extern "C" {
-#include <libavcodec/avcodec.h>
-}
-
 #include "CodecContext.h"
 
-CodecContext::CodecContext(AVCodecContext* context) { codec_context = context; }
+CodecContext::CodecContext(AVCodecContext* context) : codec_context(context) {}
 
 CodecContext CodecContext::alloc(const AVCodec* codec) {
   AVCodecContext* codec_context = avcodec_alloc_context3(codec);
