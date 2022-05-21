@@ -1,0 +1,11 @@
+rule compile
+    depfile = $out.d
+    command = g++ -Wall -Wextra -O2 -MMD -MP -MF $out.d -c -o $out $in
+
+rule link
+    command = g++ $ldflags -o $out $in
+
+build build/main: link build/main.o
+    ldflags = -lavcodec -lavformat
+
+build build/main.o: compile main.cc
