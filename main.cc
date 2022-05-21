@@ -33,6 +33,12 @@ int main(int argc, char *argv[]) {
     return EXIT_FAILURE;
   }
 
+  const AVCodec *codec = avcodec_find_decoder(video_stream->codecpar->codec_id);
+  if (codec == nullptr) {
+    std::cerr << "No supported decoder found" << std::endl;
+    return EXIT_FAILURE;
+  }
+
   avformat_close_input(&format_context);
 
   return EXIT_SUCCESS;
