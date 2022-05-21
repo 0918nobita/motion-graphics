@@ -5,7 +5,11 @@ rule compile
 rule link
     command = g++ $ldflags -o $out $in
 
-build build/main: link build/main.o
+build build/main: link build/main.o build/CodecContext.o build/FormatContext.o
     ldflags = -lavcodec -lavformat
 
-build build/main.o: compile main.cc
+build build/main.o: compile src/main.cc
+
+build build/CodecContext.o: compile src/CodecContext.cc
+
+build build/FormatContext.o: compile src/FormatContext.cc
