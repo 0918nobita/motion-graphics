@@ -16,5 +16,9 @@ class CodecContext {
 
   void init_to_use_codec(const AVCodec* codec);
 
+  void send_packet(AVPacket* packet);
+
+  int receive_frame(AVFrame* frame);
+
   ~CodecContext();
 };

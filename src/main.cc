@@ -24,6 +24,15 @@ int main(int argc, char* argv[]) {
     codec_context.set_codec_params(video_stream->codecpar);
 
     codec_context.init_to_use_codec(codec);
+
+    auto on_frame_decoded = [](AVFrame* frame) {
+      (void)frame;
+      std::cout << "f" << std::flush;
+    };
+
+    format_context.decode_frames(video_stream, codec_context, on_frame_decoded);
+
+    std::cout << std::endl << "Done" << std::endl;
   } catch (std::runtime_error& e) {
     std::cerr << e.what() << std::endl;
     return EXIT_FAILURE;

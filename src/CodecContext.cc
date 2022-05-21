@@ -23,4 +23,13 @@ void CodecContext::init_to_use_codec(const AVCodec* codec) {
     throw std::runtime_error("avcodec_open2 failed");
 }
 
+void CodecContext::send_packet(AVPacket* packet) {
+  if (avcodec_send_packet(codec_context, packet) != 0)
+    throw std::runtime_error("avcodec_send_packet failed");
+}
+
+int CodecContext::receive_frame(AVFrame* frame) {
+  return avcodec_receive_frame(codec_context, frame);
+}
+
 CodecContext::~CodecContext() { avcodec_free_context(&codec_context); }

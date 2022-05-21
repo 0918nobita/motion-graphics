@@ -33,4 +33,23 @@ AVStream* FormatContext::find_video_stream() {
   }
 }
 
+void FormatContext::decode_frames(
+    AVStream* video_stream, CodecContext& codec_context,
+    std::function<void(AVFrame*)> on_frame_decoded) {
+  auto frame = av_frame_alloc();
+
+  auto packet = AVPacket();
+
+  while (av_read_frame(format_context, &packet) == 0) {
+    if (packet.stream_index == video_stream->index) {
+      codec_context.send_packet(&packet);
+      while (codec_context.receive_frame(frame) == 0) {
+        on_frame_decoded(frame);
+      }
+    }
+  }
+
+  av_packet_unref(&packet);
+}
+
 FormatContext::~FormatContext() { avformat_close_input(&format_context); }
