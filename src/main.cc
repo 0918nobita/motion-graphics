@@ -20,6 +20,10 @@ int main(int argc, char* argv[]) {
     }
 
     auto codec_context = CodecContext::alloc(codec);
+
+    codec_context.set_codec_params(video_stream->codecpar);
+
+    codec_context.init_to_use_codec(codec);
   } catch (std::runtime_error& e) {
     std::cerr << e.what() << std::endl;
     return EXIT_FAILURE;
