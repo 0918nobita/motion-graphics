@@ -1,6 +1,6 @@
 rule compile
     depfile = $out.d
-    command = g++ -Wall -Wextra -O2 -MMD -MP -MF $out.d -c -o $out $in
+    command = g++ -std=c++20 -Wall -Wextra -O2 -MMD -MP -MF $out.d -c -o $out $in
 
 rule link
     command = g++ $ldflags -o $out $in
